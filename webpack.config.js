@@ -6,7 +6,8 @@ module.exports = {
         index: './src/index.js',
         test: './src/index.js',
     },
-    devtool: "eval",
+    mode: "development",
+    devtool: "source-map",
     output: {
         path: __dirname + '/dist',
         publicPath: '/',
@@ -20,9 +21,14 @@ module.exports = {
     module: {
         rules: [
             {
-                test: /\.(js)$/,
-                exclude: /node_modules/,
-                use: ['babel-loader']
+                test: /\.m?js$/,
+                exclude: /(node_modules)/,
+                use: {
+                    loader: 'babel-loader',
+                    options: {
+                        presets: ['@babel/preset-env']
+                    }
+                }
             },
             {
                 test: /\.scss$/,
@@ -40,6 +46,7 @@ module.exports = {
         extensions: ['*', '.js']
     },
     plugins: [
+        new webpack.ProgressPlugin(),
         new HtmlWebpackPlugin({
             title: 'Webpack Example',
             template: './src/index.html',
@@ -47,14 +54,14 @@ module.exports = {
             chunks: ['index']
         }),
         new HtmlWebpackPlugin({
-            title: 'Webpack Example',
+            title: 'Webpack Example (copy)',
             template: './src/index.html',
             filename: 'test.html',
             chunks: ['test']
         }),
-        new webpack.ProvidePlugin({
-            $: 'jquery',
-            jQuery: 'jquery'
-        })
+        // new webpack.ProvidePlugin({
+        //     $: 'jquery',
+        //     jQuery: 'jquery'
+        // })
     ]
 };
