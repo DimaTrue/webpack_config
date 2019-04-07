@@ -1,5 +1,6 @@
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const webpack = require('webpack');
+const autoprefixer = require('autoprefixer');
 
 module.exports = {
     entry: {
@@ -36,10 +37,33 @@ module.exports = {
                     loader: "style-loader" // creates style nodes from JS strings
                 }, {
                     loader: "css-loader" // translates CSS into CommonJS
-                }, {
+                },
+                {
+                    loader: 'postcss-loader',
+                    options: {
+                        plugins: [
+                            autoprefixer({
+                                browsers:['ie >= 8', 'last 4 version']
+                            })
+                        ],
+                        sourceMap: true
+                    }
+                },
+                {
                     loader: "sass-loader" // compiles Sass to CSS
                 }]
-            }
+            },
+            {
+                test: /\.pug$/,
+                use: [
+                  "html-loader",
+                  "pug-html-loader"
+                ]
+            },
+            { 
+                test: /\.handlebars$/,
+                loader: "handlebars-loader", 
+            },
         ]
     },
     resolve: {

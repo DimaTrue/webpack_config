@@ -17,6 +17,12 @@ document.addEventListener("DOMContentLoaded", function() {
     .on("test2", () => {
       renderChunk(/* webpackChunkName: "test2" */import("./pages/test2"));
     })
+    .on("pug", () => {
+      renderChunk(import("./pages/pug"));
+    })
+    .on("handlebars", () => {
+      renderChunk(import("./pages/handlebars"));
+    })
     .resolve();
 
   let lastPage = null;

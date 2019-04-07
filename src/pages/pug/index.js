@@ -1,12 +1,10 @@
-import template from "raw-loader!./template.html";
+import index from './index.pug';
 import { renderFragment } from "../../utils/render";
 
 
 export function render(container) {
-  renderFragment(container, template);
+  renderFragment(container, index);
 }
-
-
 
 
 
